@@ -5,6 +5,7 @@
 const std = @import("std");
 
 const debug = std.debug;
+const fmt = std.fmt;
 const mem = std.mem;
 
 /// The error returned by fallible operations on vectors.
@@ -44,7 +45,7 @@ pub fn Vec(comptime T: type, comptime capacity: usize) type {
         /// than the capacity of the vector.
         pub fn initFromArray(comptime n: usize, array: *const [n]T) Self {
             comptime if (n > capacity) {
-                @compileError(std.fmt.comptimePrint(
+                @compileError(fmt.comptimePrint(
                     "Vec::initFromArray: n ({}) > capacity ({})",
                     .{ n, capacity },
                 ));
@@ -73,7 +74,7 @@ pub fn Vec(comptime T: type, comptime capacity: usize) type {
         /// capacity of the vector.
         pub fn asConstArray(self: *const Self, comptime n: usize) ?*const [n]T {
             comptime if (n > capacity) {
-                @compileError(std.fmt.comptimePrint(
+                @compileError(fmt.comptimePrint(
                     "Vec::asConstArray: n ({}) > capacity ({})",
                     .{ n, capacity },
                 ));
@@ -93,7 +94,7 @@ pub fn Vec(comptime T: type, comptime capacity: usize) type {
         /// capacity of the vector.
         pub fn asArray(self: *Self, comptime n: usize) ?*[n]T {
             comptime if (n > capacity) {
-                @compileError(std.fmt.comptimePrint(
+                @compileError(fmt.comptimePrint(
                     "Vec::asArray: n ({}) > capacity ({})",
                     .{ n, capacity },
                 ));
